@@ -8,7 +8,7 @@ function App() {
 
   // axios call
   const getTodos = () => {
-    axios.get('http://localhost:8000/app/').then(res => {
+    axios.get('/app/').then(res => { //http://localhost:8000/app/
       setTodos(res.data);
     })
     .catch(err => {
