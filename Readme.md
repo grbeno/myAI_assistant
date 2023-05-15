@@ -1,1 +1,1 @@
-###### The plan here is a web-application of fine tuned GPT-Api using Django as backend, and ReactJS as frontend.
+###### The plan here is to build a web application that applies a fine-tuned GPT API and is based on Django as the backend and ReactJS as the frontend

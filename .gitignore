@@ -6,6 +6,7 @@ __pycache__/
 # my_ai_assistant-dev
 *.bat
 batch/
+info.txt
 # django-backend
 assistant.sqlite3
 # react-frontend
