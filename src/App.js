@@ -5,7 +5,7 @@ function App() {
   
   // states
   const [todos, setTodos] = React.useState([]); // populating data
-  const [formData, setFormData] = React.useState({ name: '', text: '', });
+  const [formData, setFormData] = React.useState({ id: '', name: '', text: '', });
 
   // axios get
   const getTodos = () => {
@@ -35,25 +35,30 @@ function App() {
   const handleSubmit = (event) => {
     //event.preventDefault();
     axios.post('/app/', {
+      id: formData.id,
       title: formData.title,
       body: formData.body,
     })
     .then((res) => {
-      setFormData({ title: "", body: "", });
+      setFormData({ id: "", title: "", body: "", });
     })
     .catch((err) => {});
   };
 
   // delete item
-  // const handleClear = (id) => {
-  //   axios.delete('/app/').then(() => {
-  //     setTodos(items.filter((item) => item.id !== id));
-  //   });
-  // };
+  const handleClear = (id) => {
+    axios.delete(`app/${id}/`)
+    .then(response => {
+      console.log(response.data);
+      getTodos();
+    })
+    .catch(error => {
+      console.log(error);
+    });
+  };
 
   return (
     <div>
-      
       <h4 className="p-3 pt-4">Add new with form rendering with react:</h4>
       {/* form */}
       <form className="p-3" onSubmit={handleSubmit}>
@@ -67,7 +72,7 @@ function App() {
       {/* submitted data */}
       {todos.map(item => (
         <div className='p-3' key={item.id}>
-          {/* <button type="button" onClick={handleClear(item.id)}>Clear</button> */}
+          <button type="button" onClick={() => handleClear(item.id)}>Delete</button>
           <h1>{item.title}</h1>
           <span>{item.body}</span>
         </div>
@@ -80,7 +85,6 @@ function App() {
         height: 0.5,
         borderColor: "#000000",
       }}/>
-
     </div>        
   );
 }
