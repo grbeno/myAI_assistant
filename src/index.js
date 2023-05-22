@@ -1,27 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import Nav from './Nav';
+import TodoApp from './TodoApp';
 import LangApp from './LangApp';
+import CodeExp from './CodeExp';
 import ImgGen from './ImgGen';
 
+
+function App() {
+  return(
+    <div className='p-2 container bg-transparent'>
+      <Nav />
+      <TodoApp />
+      <LangApp />
+      <CodeExp />
+      <ImgGen />
+    </div>
+  )
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>
-);
-
-const langapp = ReactDOM.createRoot(document.getElementById('lang-app'));
-langapp.render(
-  <React.StrictMode>
-    <LangApp />
-  </React.StrictMode>
-);
-
-const imgen = ReactDOM.createRoot(document.getElementById('img-gen'));
-imgen.render(
-  <React.StrictMode>
-    <ImgGen />
   </React.StrictMode>
 );

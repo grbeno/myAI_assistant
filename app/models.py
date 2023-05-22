@@ -8,10 +8,10 @@ class DataModel(models.Model):
         return str(self.title)
 
 
-# class Images(models.Model):
+# class Lang(models.Model):
 
 #     prompt = models.CharField(max_length=200)
-#     ai_img = models.ImageField(upload_to="app")
+#     answer = models.CharField(max_length=1000)
 
 #     def __str__(self):
 #         return str(self.prompt)

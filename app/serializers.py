@@ -1,6 +1,5 @@
-from .models import DataModel #, Images
+from .models import DataModel #, Lang
 from rest_framework import serializers
-
 
 class InitSerializer(serializers.ModelSerializer):
 	class Meta:
@@ -8,7 +7,7 @@ class InitSerializer(serializers.ModelSerializer):
 		fields = ('id', 'title','body')
 
 
-# class AiImageSerializer(serializers.ModelSerializer):
+# class LangSerializer(serializers.ModelSerializer):
 # 	class Meta:
-# 		model = Images
-# 		fields = ('id', 'prompt', 'ai_img')
+# 		model = Lang
+# 		fields = ('id', 'prompt', 'answer')

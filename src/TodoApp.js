@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './App.css';
 
-
-function App() {
+export default function TodoApp() {
   
   // hooks
   const [todos, setTodos] = useState([]); // populating data
@@ -11,10 +11,6 @@ function App() {
 
   const toggleContent = () => {
     setIsContentVisible(!isContentVisible);
-  };
-
-  const cursorStyle = {
-    cursor: 'pointer',
   };
 
   // axios get
@@ -76,7 +72,7 @@ function App() {
   return (
     <div>
       <div class="d-flex h2 w-100 p-3 mt-3 bg-info text-light justify-content-between">
-        Todo App for testing django-restframework & react<i class="m-2 fa-solid fa-sort" style={cursorStyle} onClick={toggleContent}></i>
+      <i class="m-2 fa-solid fa-terminal"></i>Todo App for testing django-restframework & react<i class="cursor-like m-2 fa-solid fa-sort" onClick={toggleContent}></i>
       </div>
       {isContentVisible && (
       <div>
@@ -101,15 +97,7 @@ function App() {
             <span>{item.body}</span>
           </div>
         ))}
-
-        {/* horizontal separator */}
-        <hr style={{
-          color: "#000000",
-          backgroundColor: "#000000",
-          height: 0.5,
-          borderColor: "#000000",
-        }}/>
-
+        
         </div>
         )}
         <hr/>
@@ -117,4 +105,3 @@ function App() {
   );
 }
 
-export default App;
