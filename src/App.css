@@ -1,7 +1,26 @@
+body {
+    background-color: #e1f9f1;
+}
+
+.container {
+    margin-top: 8%;
+}
+
 .navbar {
-    background-color: beige;
+    background-color: #131954;
 }
 
 .cursor-like {
     cursor: pointer;
 }
+
+textarea.form-control {
+    height: 120px;
+}
+
+@media screen and (max-width: 768px) {
+    .container {
+        margin-top: 22%;
+    }
+}
+    

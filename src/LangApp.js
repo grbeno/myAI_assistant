@@ -5,12 +5,26 @@ import './app.css';
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
+const Button = ({ name, onClick, isActive }) => {
+    const buttonStyle = isActive ? 'btn btn-primary mr-3' : 'btn btn-secondary mr-3';
+    return (
+      <button className={buttonStyle} onClick={onClick}>
+        {name}
+      </button>
+    );
+};
+
 export default function LangApp() {
   
     // hooks
     const [isContentVisible, setIsContentVisible] = useState(false);
     const [langAppData, setLangAppData] = useState([]); // populating data
     const [formData, setFormData] = useState({ prompt: ''});
+    const [activeButton, setActiveButton] = useState(1);  // 1 = English, 2 = Deutsch
+
+    const handleButtonClick = (button) => {
+        setActiveButton(button);
+    };
 
     const toggleContent = () => {
         setIsContentVisible(!isContentVisible);
@@ -60,6 +74,8 @@ export default function LangApp() {
         });
     };
 
+    //console.log(activeButton);
+
     return (
         <div>
             <div class="d-flex h2 w-100 p-3 mt-3 bg-info text-light justify-content-between">
@@ -74,24 +90,31 @@ export default function LangApp() {
                 </ul>
 
                 {/* choose language */}
-                <div className="d-flex p-3 justify-content-start">
-                    <button className="btn btn-primary mr-3">English</button>
-                    <button className="btn btn-primary">Deutsch</button>     
+                <div className="p-3"> 
+                    <span className="input-group-text" id="basic-addon1">{" "}Choose language{" "}</span>
+                    <div className="d-flex mt-2 justify-content-start">
+                        <Button onClick={() => handleButtonClick(1)} isActive={activeButton === 1} name='English' />
+                        <Button onClick={() => handleButtonClick(2)} isActive={activeButton === 2} name='Deutsch' />     
+                    </div>
                 </div>
                 
                 {/* send prompt */}
                 <form className="p-3" onSubmit={handleSubmit}>
                     <span className="input-group-text" id="basic-addon1">{" "}Prompt{" "}</span>
-                    <input type="text" className="form-control" value={formData.prompt} name="prompt" onChange={handleInput}/>
-                    <button type="submit" className="btn btn-primary mt-2">Response</button>
+                    <textarea className="form-control" type="text" value={formData.prompt} name="prompt" onChange={handleInput}/>
+                    <button className="btn btn-primary mt-2" type="submit">Response</button>
                 </form>
             
                 {/* submitted data */}
                 {langAppData.map(item => (
                     <div className='p-3' key={item.id}>
-                        <h6 className='text-secondary'>{item.prompt}</h6>
-                        <h6>{item.answer}</h6>
-                     </div>
+                        <div class="d-flex h6 text-light bg-dark p-3 mb-n1 justify-content-between">
+                            <span>{item.prompt}</span><span></span><i class="cursor-like fa-solid fa-trash" onClick={console.log('del-clicked')}></i>
+                        </div> 
+                        <div className="border border-secondary rounded bg-light p-5">
+                            <h6>{item.answer}</h6>
+                        </div>
+                    </div>
                 ))}
 
             </div>

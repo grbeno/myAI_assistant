@@ -53,6 +53,8 @@ class LangAI(APIView):
 	
 	def post(self, request):
 		prompt = request.data['prompt']
+		# custom_prompt = f"{prompt}\nAI: "
+		
 		# answer = openai.Completion.create(
 		# 	prompt=prompt,
 		# 	engine="davinci",
@@ -62,7 +64,7 @@ class LangAI(APIView):
 		
 		# Test
 		unique = random.randint(10000, 99999)
-		answer = f"test-answer-{unique}"
+		answer = f"@Thank you for the prompt, but this applicatation is currently under development. AI will response you soon. Have a nice day! [test-answer-{unique}]"
 		
 		data = { 'prompt': prompt , 'answer': answer }
 		serializer = LangSerializer(data=data)

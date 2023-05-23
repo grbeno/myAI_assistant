@@ -10,7 +10,7 @@ class DataModel(models.Model):
 
 class Lang(models.Model):
 
-    prompt = models.CharField(max_length=200)
+    prompt = models.TextField(max_length=500)
     answer = models.CharField(max_length=1000)
 
     def __str__(self):
