@@ -1,4 +1,4 @@
-from .models import DataModel #, Lang
+from .models import DataModel, Lang
 from rest_framework import serializers
 
 class InitSerializer(serializers.ModelSerializer):
@@ -7,7 +7,7 @@ class InitSerializer(serializers.ModelSerializer):
 		fields = ('id', 'title','body')
 
 
-# class LangSerializer(serializers.ModelSerializer):
-# 	class Meta:
-# 		model = Lang
-# 		fields = ('id', 'prompt', 'answer')
+class LangSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Lang
+		fields = ('id', 'prompt', 'answer')

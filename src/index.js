@@ -9,12 +9,14 @@ import ImgGen from './ImgGen';
 
 function App() {
   return(
-    <div className='p-2 container bg-transparent'>
+    <div>
       <Nav />
-      <TodoApp />
-      <LangApp />
-      <CodeExp />
-      <ImgGen />
+      <div className='p-2 container bg-transparent'>
+        <TodoApp />
+        <LangApp />
+        <CodeExp />
+        <ImgGen />
+      </div>
     </div>
   )
 }

@@ -8,12 +8,12 @@ class DataModel(models.Model):
         return str(self.title)
 
 
-# class Lang(models.Model):
+class Lang(models.Model):
 
-#     prompt = models.CharField(max_length=200)
-#     answer = models.CharField(max_length=1000)
+    prompt = models.CharField(max_length=200)
+    answer = models.CharField(max_length=1000)
 
-#     def __str__(self):
-#         return str(self.prompt)
+    def __str__(self):
+        return str(self.prompt)
 
 

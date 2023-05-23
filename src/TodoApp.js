@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './App.css';
+import './app.css';
+
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 export default function TodoApp() {
   
@@ -54,7 +57,9 @@ export default function TodoApp() {
       setFormData({ id: '', title: '', body: '' });
       setTodos((prevTodos) => [...prevTodos, newItem]);
     })
-    .catch((err) => {});
+    .catch((err) => {
+      console.log(err);
+    });
   };
 
   // delete item
@@ -64,8 +69,8 @@ export default function TodoApp() {
       console.log(response.data);
       getTodos();
     })
-    .catch(error => {
-      console.log(error);
+    .catch(err => {
+      console.log(err);
     });
   };
 
@@ -86,7 +91,7 @@ export default function TodoApp() {
           <input type="text" className="form-control" value={formData.title} name="title" onChange={handleInput}/>
           <span className="input-group-text" id="basic-addon1">{" "}Body{" "}</span>
           <input type="text" className="form-control" value={formData.body} name="body" onChange={handleInput}/>
-          <button type="submit" className="btn btn-primary">Submit</button>
+          <button type="submit" className="btn btn-primary mt-2">Submit</button>
         </form>
       
         {/* submitted data */}
@@ -97,7 +102,7 @@ export default function TodoApp() {
             <span>{item.body}</span>
           </div>
         ))}
-        
+
         </div>
         )}
         <hr/>

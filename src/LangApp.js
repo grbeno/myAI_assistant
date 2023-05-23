@@ -1,27 +1,27 @@
-import React, {useState} from 'react';
-import './App.css';
+import React, {useState, useEffect} from 'react';
+import axios from 'axios';
+import './app.css';
+
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 
 export default function LangApp() {
   
     // hooks
     const [isContentVisible, setIsContentVisible] = useState(false);
-    /* const [langAppData, setLangAppData] = useState([]); // populating data
-    const [formData, setFormData] = useState({ prompt: ''}); */
+    const [langAppData, setLangAppData] = useState([]); // populating data
+    const [formData, setFormData] = useState({ prompt: ''});
 
     const toggleContent = () => {
         setIsContentVisible(!isContentVisible);
     };
 
-    // style
-    /* const cursorStyle = {
-        cursor: 'pointer',
-    }; */
-
-    /* // get langAppData
+    // get langAppData
     const getLangAppData = () => {
-        axios.get('/app/')
+        axios.get('/lang/')
         .then(res => {
             setLangAppData(res.data);
+            console.log(res.data);
         })
         .catch(err => {
             console.log(err);
@@ -44,20 +44,21 @@ export default function LangApp() {
     // handle submit
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post('/app/', {  
+        axios.post('/lang/', {  
             prompt: formData.prompt,
         })
         .then((res) => {
             const newItem = {
                 prompt: formData.prompt,
+                answer: res.data.answer,
             };
-            setFormData({ prompt: ''});
+            setFormData({ prompt: '', answer: ''});
             setLangAppData((prevLangAppData) => [...prevLangAppData, newItem]);
         })
         .catch(err => {
             console.log(err);
         });
-    }; */
+    };
 
     return (
         <div>
@@ -71,19 +72,28 @@ export default function LangApp() {
                     <li>Gramatical correction in English and German.</li>
                     <li>Usage suggestion.</li>
                 </ul>
-                {/* <form onSubmit={handleSubmit}>
+
+                {/* choose language */}
+                <div className="d-flex p-3 justify-content-start">
+                    <button className="btn btn-primary mr-3">English</button>
+                    <button className="btn btn-primary">Deutsch</button>     
+                </div>
+                
+                {/* send prompt */}
+                <form className="p-3" onSubmit={handleSubmit}>
                     <span className="input-group-text" id="basic-addon1">{" "}Prompt{" "}</span>
                     <input type="text" className="form-control" value={formData.prompt} name="prompt" onChange={handleInput}/>
-                    <button type="submit" className="btn btn-primary">Response</button>
-                </form> */}
+                    <button type="submit" className="btn btn-primary mt-2">Response</button>
+                </form>
             
                 {/* submitted data */}
-                {/* {langAppData.map(item => (
+                {langAppData.map(item => (
                     <div className='p-3' key={item.id}>
-                        <h4>{item.prompt}</h4>
-                        <span>{item.answer}</span>
+                        <h6 className='text-secondary'>{item.prompt}</h6>
+                        <h6>{item.answer}</h6>
                      </div>
-                ))} */}
+                ))}
+
             </div>
             )}
             <hr/>
