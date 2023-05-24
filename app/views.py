@@ -1,4 +1,5 @@
 from django.views.generic import TemplateView
+from django.shortcuts import redirect
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from environs import Env
@@ -16,9 +17,9 @@ env.read_env()
 
 class React(TemplateView):
 	template_name = 'index.html'
-    
 
-class ListView(APIView):
+
+class TodoApp(APIView):
 	
 	serializer_class = InitSerializer
 
@@ -40,7 +41,7 @@ class ListView(APIView):
 			return Response({'message': 'Item deleted successfully.'})
 		except DataModel.DoesNotExist:
 			return Response({'error': 'Item not found.'})
-
+    
 
 class LangAI(APIView):
 	
@@ -71,6 +72,14 @@ class LangAI(APIView):
 		if serializer.is_valid(raise_exception=True):
 			serializer.save()
 			return Response(serializer.data)
+
+	def delete(self, request, pk):
+		try:
+			detail = Lang.objects.get(pk=pk)
+			detail.delete()
+			return Response({'message': 'Item deleted successfully.'})
+		except Lang.DoesNotExist:
+			return Response({'error': 'Item not found.'})
 
 
 

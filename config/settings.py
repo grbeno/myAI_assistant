@@ -88,13 +88,16 @@ TEMPLATES = [
 ]
 
 REST_FRAMEWORK = {
-        'DEFAULT_PERMISSION_CLASSES': [ 
-            'rest_framework.permissions.AllowAny', 
-        ]
-    }               
+    'DEFAULT_PERMISSION_CLASSES': [ 
+        "rest_framework.permissions.AllowAny",
+    ],
+    'DEFAULT_RENDERER_CLASSES': [   
+        #'rest_framework.renderers.BrowsableAPIRenderer',
+        "rest_framework.renderers.JSONRenderer",
+    ]     
+}               
 
 WSGI_APPLICATION = 'config.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases

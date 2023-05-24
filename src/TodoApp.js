@@ -11,7 +11,18 @@ export default function TodoApp() {
   const [todos, setTodos] = useState([]); // populating data
   const [formData, setFormData] = useState({ id: '', name: '', text: '', });
   const [isContentVisible, setIsContentVisible] = useState(false);
+  // const [backgroundColor, setBackgroundColor] = useState('bg-primary');
 
+  // random color
+  // const randomColor = (id) => {
+  //   const element = document.getElementById(id);
+  //   const colors = ['bg-primary', 'bg-success', 'bg-danger', 'bg-dark'];
+  //   var color = colors[Math.floor(Math.random() * colors.length)];
+  //   element.classList.add(color);
+  //   //return color;
+  // };
+  
+  // toggle content
   const toggleContent = () => {
     setIsContentVisible(!isContentVisible);
   };
@@ -30,7 +41,7 @@ export default function TodoApp() {
   // call getTodos on component mount
   useEffect(() => {
     getTodos();
-  }, []);
+  }, [] );
 
   // handle input
   const handleInput = (event) => {
@@ -56,6 +67,7 @@ export default function TodoApp() {
       };
       setFormData({ id: '', title: '', body: '' });
       setTodos((prevTodos) => [...prevTodos, newItem]);
+      // setBackgroundColor(randomColor());
     })
     .catch((err) => {
       console.log(err);
@@ -81,15 +93,29 @@ export default function TodoApp() {
       </div>
       {isContentVisible && (
       <div>
-        <h4 className="p-3">Add new with<a href="/app/"> django-restframework</a></h4>
+        <h6 className="p-3"><a href="/app/">Rendering API endpoint</a></h6>
         <hr/>
-        <h4 className="p-3">Add new with form rendering with react:</h4>
+        <h4 className="p-3">Use the form to add data:</h4>
         
         {/* form */}
         <form className="p-3" onSubmit={handleSubmit}>
           <span className="input-group-text" id="basic-addon1">{" "}Title{" "}</span>
           <input type="text" className="form-control" value={formData.title} name="title" onChange={handleInput}/>
           <span className="input-group-text" id="basic-addon1">{" "}Body{" "}</span>
+          
+          {/*<div className="form-check"> 
+             
+            <input className="form-check-input" type="checkbox" value={formData.is_completed} name="is_completed" onChange={handleInput}/>
+            <label className="form-check-label" htmlFor="flexCheckDefault">Completed</label>
+            
+            <input className="form-check-input" type="checkbox" value={formData.is_completed} name="is_completed" onChange={handleInput}/>
+            <label className="form-check-label" htmlFor="flexCheckDefault">Completed</label>
+
+            <input className="form-check-input" type="checkbox" value={formData.is_completed} name="is_completed" onChange={handleInput}/>
+            <label className="form-check-label" htmlFor="flexCheckDefault">Completed</label>
+           
+           </div> */}
+
           <input type="text" className="form-control" value={formData.body} name="body" onChange={handleInput}/>
           <button type="submit" className="btn btn-primary mt-2">Submit</button>
         </form>
@@ -97,10 +123,13 @@ export default function TodoApp() {
         {/* submitted data */}
         {todos.map(item => (
           <div className='p-3' key={item.id}>
-            <button type="button" onClick={() => handleClear(item.id)}>Delete</button>
-            <h1>{item.title}</h1>
-            <span>{item.body}</span>
+          <div id={`${item.id}`} className={`d-flex h6 text-light p-3 mb-n1 justify-content-between bg-dark`}>  {/* ${() => randomColor(item.id)}`}> */}
+              <span>{item.title}</span><span></span><i class="cursor-like fa-solid fa-trash" onClick={() => handleClear(item.id)}></i>
+          </div> 
+          <div className="border border-secondary rounded bg-light p-5">
+              <h6>{item.body}</h6>
           </div>
+      </div>
         ))}
 
         </div>

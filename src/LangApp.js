@@ -63,15 +63,33 @@ export default function LangApp() {
         })
         .then((res) => {
             const newItem = {
+                id: res.data.id,
                 prompt: formData.prompt,
                 answer: res.data.answer,
             };
-            setFormData({ prompt: '', answer: ''});
+            setFormData({ id: '', prompt: '', answer: ''});
             setLangAppData((prevLangAppData) => [...prevLangAppData, newItem]);
         })
         .catch(err => {
             console.log(err);
         });
+    };
+
+    // delete item
+    const handleClear = (id) => {
+        axios.delete(`lang/${id}/`)
+        .then(response => {
+        console.log(response.data);
+        getLangAppData();
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    };
+
+    const randomColor = () => {
+        const colors = ['bg-primary', 'bg-success', 'bg-danger', 'bg-dark'];
+        return colors[Math.floor(Math.random() * colors.length)];
     };
 
     //console.log(activeButton);
@@ -83,6 +101,8 @@ export default function LangApp() {
             </div>  
             {isContentVisible && (
             <div>
+                <h6 className="p-3"><a href="/lang/">Rendering API endpoint</a></h6>
+                <hr/>
                 <h4 className='p-3'>Language Assistant plan</h4>
                 <ul>
                     <li>Gramatical correction in English and German.</li>
@@ -108,8 +128,8 @@ export default function LangApp() {
                 {/* submitted data */}
                 {langAppData.map(item => (
                     <div className='p-3' key={item.id}>
-                        <div class="d-flex h6 text-light bg-dark p-3 mb-n1 justify-content-between">
-                            <span>{item.prompt}</span><span></span><i class="cursor-like fa-solid fa-trash" onClick={console.log('del-clicked')}></i>
+                        <div className={`d-flex h6 text-light p-3 mb-n1 justify-content-between ${randomColor()}`}>
+                            <span>{item.prompt}</span><span></span><i class="cursor-like fa-solid fa-trash" onClick={() => handleClear(item.id)}></i>
                         </div> 
                         <div className="border border-secondary rounded bg-light p-5">
                             <h6>{item.answer}</h6>
