@@ -2,11 +2,13 @@ from django.db import models
 
 class DataModel(models.Model):
     title = models.CharField(max_length=200)
-    # # priority
-    # low = models.BooleanField(default=False)
-    # medium = models.BooleanField(default=True)
-    # high = models.BooleanField(default=False)
-    # description = models.TextField(max_length=300, blank=True)
+    # priority
+    COLOR_CHOICES = [
+        ('bg-info', 'Low'),
+        ('bg-success', 'Medium'),
+        ('bg-danger', 'High'),
+    ]
+    color = models.CharField(max_length=20, default='bg-success', choices=COLOR_CHOICES)
     body = models.TextField(max_length=500, blank=True)
 
     def __str__(self):
