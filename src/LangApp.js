@@ -60,11 +60,12 @@ export default function LangApp() {
         event.preventDefault();
         axios.post('/lang/', {  
             prompt: formData.prompt,
+            answer: formData.answer,
         })
         .then((res) => {
             const newItem = {
                 id: res.data.id,
-                prompt: formData.prompt,
+                prompt: res.data.prompt,
                 answer: res.data.answer,
             };
             setFormData({ id: '', prompt: '', answer: ''});
@@ -86,13 +87,6 @@ export default function LangApp() {
             console.log(err);
         });
     };
-
-    const randomColor = () => {
-        const colors = ['bg-primary', 'bg-success', 'bg-danger', 'bg-dark'];
-        return colors[Math.floor(Math.random() * colors.length)];
-    };
-
-    //console.log(activeButton);
 
     return (
         <div>
@@ -128,7 +122,7 @@ export default function LangApp() {
                 {/* submitted data */}
                 {langAppData.map(item => (
                     <div className='p-3' key={item.id}>
-                        <div className={`d-flex h6 text-light p-3 mb-n1 justify-content-between ${randomColor()}`}>
+                        <div className={"d-flex h6 text-light p-3 mb-n1 justify-content-between bg-info"}>
                             <span>{item.prompt}</span><span></span><i class="cursor-like fa-solid fa-trash" onClick={() => handleClear(item.id)}></i>
                         </div> 
                         <div className="border border-secondary rounded bg-light p-5">

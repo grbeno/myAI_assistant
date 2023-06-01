@@ -9,7 +9,7 @@ export default function TodoApp() {
   
   // hooks
   const [todos, setTodos] = useState([]); // populating data
-  const [formData, setFormData] = useState({ id: '', title: '', color: '', body: '', });
+  const [formData, setFormData] = useState({ title: '', color: '', body: '', });
   const [isContentVisible, setIsContentVisible] = useState(false);
   
   // toggle content
@@ -47,7 +47,7 @@ export default function TodoApp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios.post('/app/', {
-      id: formData.id,
+      // id: formData.id,
       title: formData.title,
       color: formData.color,
       body: formData.body,
@@ -55,12 +55,12 @@ export default function TodoApp() {
     .then((res) => {
       const newItem = {
         id: res.data.id,
-        title: formData.title,
-        color: formData.color,
-        body: formData.body,
+        title: res.data.title,
+        color: res.data.color,
+        body: res.data.body,
       };
-      setFormData((prevFormData) => ({ ...prevFormData, id: '', title: '', color: '', body: '' }));
-      setTodos((prevTodos) => [...prevTodos, newItem]);
+      setFormData((prevFormData) => ({ ...prevFormData, title: '', color: '', body: '' }));
+      setTodos((prevTodos) => [...prevTodos, newItem]); // for rendering
     })
     .catch((err) => {
       console.log(err);
@@ -120,7 +120,7 @@ export default function TodoApp() {
             //const bgColor = 'bg-info' // default
             return (
               <div className='p-3' key={item.id}>
-                <div id={item.id.toString()} className={`d-flex h6 text-light p-3 mb-n1 justify-content-between ${item.color}`}>
+                <div className={`d-flex h6 text-light p-3 mb-n1 justify-content-between ${item.color}`}>  {/*  id={item.id.toString()} */}
                     <span>{item.title}</span><span></span><i class="cursor-like fa-solid fa-trash" onClick={() => handleClear(item.id)}></i>
                 </div> 
                 <div className="border border-secondary rounded bg-light p-5">
