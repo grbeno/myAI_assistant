@@ -34,6 +34,13 @@ class TodoApp(APIView):
 			serializer.save()
 			return Response(serializer.data)
 	
+	def put(self, request, pk):
+		detail = DataModel.objects.get(pk=pk)
+		serializer = InitSerializer(instance=detail, data=request.data)
+		if serializer.is_valid(raise_exception=True):
+			serializer.save()
+			return Response(serializer.data)
+	
 	def delete(self, request, pk):
 		try:
 			detail = DataModel.objects.get(pk=pk)
