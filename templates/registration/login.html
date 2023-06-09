@@ -1,0 +1,13 @@
+<h3>login page ...</h3>
+<form method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">login</button>
+<br>
+<br>
+{% if user.is_authenticated %}
+  Welcome, {{ user.username }}!
+{% else %}
+  Welcome, guest!
+{% endif %}
+

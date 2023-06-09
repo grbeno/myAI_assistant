@@ -5,13 +5,17 @@ import TodoApp from './TodoApp';
 import LangApp from './LangApp';
 import CodeExp from './CodeExp';
 import ImgGen from './ImgGen';
-
+import LoginForm from './Login';
 
 function App() {
+  
+  // login
+
   return(
     <div>
       <Nav />
       <div className='p-2 container bg-transparent'>
+        <LoginForm />
         <TodoApp />
         <LangApp />
         <CodeExp />

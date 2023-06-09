@@ -90,11 +90,17 @@ TEMPLATES = [
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [ 
         "rest_framework.permissions.AllowAny",
+        #'rest_framework.permissions.IsAuthenticated',
     ],
     'DEFAULT_RENDERER_CLASSES': [   
         #'rest_framework.renderers.BrowsableAPIRenderer',
         "rest_framework.renderers.JSONRenderer",
-    ]     
+    ],
+    # 'DEFAULT_AUTHENTICATION_CLASSES': [
+    # # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+    # 'rest_framework.authentication.SessionAuthentication',
+    # # 'rest_framework.authentication.BasicAuthentication',
+    # ],    
 }               
 
 WSGI_APPLICATION = 'config.wsgi.application'
@@ -172,3 +178,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom user
 AUTH_USER_MODEL = 'accounts.CustomUser'
+
+# Redirect login & logout
+LOGIN_REDIRECT_URL = 'frontend'
+LOGOUT_REDIRECT_URL = 'frontend'
