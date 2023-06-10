@@ -30,13 +30,10 @@ function App() {
 
   return(
     <div>
-      <Nav auth={auth}/>
+      <Nav auth={auth} user={user}/>
       <div className='p-2 container bg-transparent'> 
         {auth ? (
           <>
-            <div className="d-flex h5 p-2 text-success justify-content-center">
-              <span><i class="fa-solid mx-2 fa-robot"></i>Welcome {user}! You are now logged in.</span>
-            </div>
             <TodoApp />
             <LangApp />
             <CodeExp />

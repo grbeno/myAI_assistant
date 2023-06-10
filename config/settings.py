@@ -180,5 +180,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
 # Redirect login & logout
-LOGIN_REDIRECT_URL = 'frontend'
-LOGOUT_REDIRECT_URL = 'frontend'
+# LOGIN_REDIRECT_URL = 'frontend'
+# LOGOUT_REDIRECT_URL = 'frontend'
+
+# Session
+SESSION_COOKIE_AGE = 3600  # for testing: 30 
+# SESSION_SAVE_EVERY_REQUEST = True
+# SESSION_EXPIRE_AT_BROWSER_CLOSE = True

@@ -1,5 +1,6 @@
 from django.contrib.auth import login, logout
 from django.http import JsonResponse
+from django.conf import settings
 from django.views import View
 from .models import CustomUser
 
@@ -29,8 +30,10 @@ class Logout(View):
         logout(request)
         return JsonResponse({'success': True})
 
+# Sessions
 
 class SessionInfoView(View):
+    
     def get(self, request):
         session_data = {
             'is_authenticated': request.user.is_authenticated,
@@ -38,3 +41,11 @@ class SessionInfoView(View):
             # Include any other session data you want to expose
         }
         return JsonResponse(session_data)
+    
+# Cookie age
+class CookieAgeView(View):
+        
+        def get(self, request):
+            cookie_age = settings.SESSION_COOKIE_AGE
+            return JsonResponse({'cookie_age': cookie_age})
+        
