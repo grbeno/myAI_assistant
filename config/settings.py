@@ -184,6 +184,6 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 # LOGOUT_REDIRECT_URL = 'frontend'
 
 # Session
-SESSION_COOKIE_AGE = 3600  # for testing: 30 
+SESSION_COOKIE_AGE = 3600 * 24 # for testing: 30 
 # SESSION_SAVE_EVERY_REQUEST = True
 # SESSION_EXPIRE_AT_BROWSER_CLOSE = True

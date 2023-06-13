@@ -11,7 +11,7 @@ class Login(View):
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = CustomUser.objects.filter(username=username).first()
-        print(username)
+        # print(username)
         
         if user is not None and user.check_password(password):
             try:

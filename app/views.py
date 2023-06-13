@@ -1,12 +1,16 @@
+from environs import Env
+import random
+# import openai
+
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from environs import Env
+
 from .models import DataModel, Lang
 from .serializers import InitSerializer, LangSerializer
-import random
-# import openai
+from .permissions import IsOwnerOrReadOnly
+
 
 env = Env()
 env.read_env()
@@ -21,14 +25,22 @@ class React(TemplateView):
 
 class TodoApp(APIView):
 	
+	permission_classes = [IsOwnerOrReadOnly]
 	serializer_class = InitSerializer
 
 	def get(self, request):
-		detail = DataModel.objects.all()
+		#detail = DataModel.objects.all()
+		# Filter by user id
+		detail = DataModel.objects.filter(user=request.user.id)
+		# Serialize data
 		serializer = InitSerializer(detail, many=True)
 		return Response(serializer.data)
 
 	def post(self, request):
+		# Add user id to request.data
+		user_id = request.user.id
+		request.data['user'] = user_id
+		# Serialize data
 		serializer = InitSerializer(data=request.data)
 		if serializer.is_valid(raise_exception=True):
 			serializer.save()

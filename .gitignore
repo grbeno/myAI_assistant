@@ -7,6 +7,8 @@ __pycache__/
 *.bat
 batch/
 info.txt
+challenges-objectives.txt
+
 # django-backend
 assistant.sqlite3
 # react-frontend

@@ -26,7 +26,7 @@ export default function TodoApp() {
     axios.get('/app/')
     .then(res => {
       setTodos(res.data);
-      // console.log(res.data);
+      console.log(res.data);
     })
     .catch(err => {
       console.log(err);
@@ -56,6 +56,7 @@ export default function TodoApp() {
       title: formData.title,
       color: formData.color,
       body: formData.body,
+      user: todos.user,
     })
     .then((res) => {
       const newItem = {
