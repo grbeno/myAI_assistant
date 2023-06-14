@@ -4,12 +4,13 @@ import random
 
 from django.views.generic import TemplateView
 from django.shortcuts import redirect
+# from rest_framework import renderers
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from .models import DataModel, Lang
 from .serializers import InitSerializer, LangSerializer
-from .permissions import IsOwnerOrReadOnly
+from .permissions import IsOwner
 
 
 env = Env()
@@ -25,11 +26,11 @@ class React(TemplateView):
 
 class TodoApp(APIView):
 	
-	permission_classes = [IsOwnerOrReadOnly]
 	serializer_class = InitSerializer
+	permission_classes = [IsOwner]
+	#renderer_classes = [renderers.BrowsableAPIRenderer, renderers.JSONRenderer]  # For testing (Browsable API)
 
 	def get(self, request):
-		#detail = DataModel.objects.all()
 		# Filter by user id
 		detail = DataModel.objects.filter(user=request.user.id)
 		# Serialize data
@@ -38,17 +39,17 @@ class TodoApp(APIView):
 
 	def post(self, request):
 		# Add user id to request.data
-		user_id = request.user.id
-		request.data['user'] = user_id
+		# user_id = request.user.id
+		# request.data['user'] = user_id
 		# Serialize data
-		serializer = InitSerializer(data=request.data)
+		serializer = InitSerializer(data=request.data, context={'request': request})
 		if serializer.is_valid(raise_exception=True):
 			serializer.save()
 			return Response(serializer.data)
 	
 	def put(self, request, pk):
 		detail = DataModel.objects.get(pk=pk)
-		serializer = InitSerializer(instance=detail, data=request.data)
+		serializer = InitSerializer(instance=detail, data=request.data, context={'request': request})
 		if serializer.is_valid(raise_exception=True):
 			serializer.save()
 			return Response(serializer.data)
